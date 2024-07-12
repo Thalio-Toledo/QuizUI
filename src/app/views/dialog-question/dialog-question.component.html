@@ -1,0 +1,33 @@
+<mat-dialog-content>
+
+    <form class="question-form" [formGroup]="questionForm" >
+
+        <mat-form-field>
+            <mat-label for="question">Pergunta</mat-label>
+            <textarea id="question" formControlName="question" matInput placeholder="Escreva uma pergunta"></textarea>
+        </mat-form-field>
+
+    </form>
+
+    <form class="answer-form" [formGroup]="answerForm">
+
+        @for (answer  of obterNomesControles(); track $index) {
+            <mat-form-field >
+                <mat-label >Alternativa {{$index + 1}}</mat-label>
+                <textarea [id]="answer" [formControlName]="answer" matInput placeholder="write a answer"></textarea>
+                <mat-slide-toggle labelPosition="before">Right Answer</mat-slide-toggle>
+            </mat-form-field>
+          }
+
+          <button mat-button (click)="adicionarControle('answer' + (obterNomesControles().length + 1))">Add Answer</button>
+
+    </form>
+
+    <button mat-button (click)="enviar()" cdkFocusInitial>Enviar</button>
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button>
+</mat-dialog-actions>
